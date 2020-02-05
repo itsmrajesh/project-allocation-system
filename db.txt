@@ -1,0 +1,6 @@
+create database projectalloc;
+use projectalloc;
+
+create table studentinfo(usn varchar(100) primary key,name varchar(100),dept varchar(100),email varchar(100),mobile varchar(100),password varchar(100),sem int(10));
+
+create table projectinfo(pid int(100) primary key auto_increment,usn varchar(100),projecttitle  varchar(100),type varchar(100),abstract varchar(100), status varchar(100), feedback varchar(220)); 
