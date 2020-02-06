@@ -3,12 +3,13 @@ package com.proj.domain;
 public class MyProject {
 
 	private int id;
-	private String ptitle, type, pabstract, status, feedback, team;
+	private String usn, ptitle, type, pabstract, status, feedback, team;
 
-	public MyProject(int id, String ptitle, String type, String pabstract, String status, String feedback,
+	public MyProject(int id, String usn, String ptitle, String type, String pabstract, String status, String feedback,
 			String team) {
 		super();
 		this.id = id;
+		this.usn = usn;
 		this.ptitle = ptitle;
 		this.type = type;
 		this.pabstract = pabstract;
@@ -17,8 +18,9 @@ public class MyProject {
 		this.team = team;
 	}
 
-	public MyProject(String ptitle, String type, String pabstract, String team) {
+	public MyProject(String usn, String ptitle, String type, String pabstract, String team) {
 		super();
+		this.usn = usn;
 		this.ptitle = ptitle;
 		this.type = type;
 		this.pabstract = pabstract;
@@ -27,6 +29,10 @@ public class MyProject {
 
 	public int getId() {
 		return id;
+	}
+
+	public String getUsn() {
+		return usn;
 	}
 
 	public String getPtitle() {
@@ -52,7 +58,5 @@ public class MyProject {
 	public String getTeam() {
 		return team;
 	}
-	
-	
 
 }

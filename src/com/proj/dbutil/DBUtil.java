@@ -8,6 +8,7 @@ public enum DBUtil {
 	private Statement stmt;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
+	
 	static {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -17,7 +18,7 @@ public enum DBUtil {
 	}
 
 	public Connection getConnection() {
-		String dbName = "projectallo";
+		String dbName = "projectalloc";
 		String url = "jdbc:mysql://localhost:3306/" + dbName + "?autoReconnect=true&useSSL=false";
 		String userName = "rajesh";
 		String password = "mysql123";

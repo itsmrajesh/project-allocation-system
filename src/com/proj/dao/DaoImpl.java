@@ -1,6 +1,7 @@
 package com.proj.dao;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.proj.dbutil.DBUtil;
@@ -46,7 +47,8 @@ public class DaoImpl implements Dao {
 			pst.setString(1, usn);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				student = new Student(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7));
+				student = new Student(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getInt(7));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -55,21 +57,99 @@ public class DaoImpl implements Dao {
 	}
 
 	@Override
-	public boolean registerProject(MyProject project) {
-		// TODO Auto-generated method stub
+	public boolean registerProject(MyProject p) {
+		String sql = "INSERT INTO PROJECTINFO (usn,projecttitle,type,abstract,team) values (?,?,?,?,?)";
+
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setString(1, p.getUsn());
+			pst.setString(2, p.getPtitle());
+			pst.setString(3, p.getType());
+			pst.setString(4, p.getPabstract());
+			pst.setString(5, p.getTeam());
+			int count = pst.executeUpdate();
+			if (count == 1)
+				return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
 	@Override
 	public List<MyProject> getStudentProject(String usn) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM PROJECTINFO WHERE USN = ?";
+		List<MyProject> pList = new ArrayList<>();
+		MyProject project = null;
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setString(1, usn);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				project = new MyProject(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8));
+
+				pList.add(project);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return pList;
 	}
 
 	@Override
-	public boolean updateProject(int pid, String status) {
-		// TODO Auto-generated method stub
+	public boolean updateProject(int pid, String status, String feedback) {
+		String sql = "UPDATE PROJECTINFO SET STATUS = ?,FEEDBACK = ? WHERE PID = ?";
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setString(1, status);
+			pst.setString(2, feedback);
+			pst.setInt(3, pid);
+			int count = pst.executeUpdate();
+			if (count == 1)
+				return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return false;
+	}
+
+	@Override
+	public MyProject getProjectByID(int pid) {
+		String sql = "SELECT * FROM PROJECTINFO WHERE PID = ?";
+		MyProject project = null;
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, pid);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				project = new MyProject(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return project;
+	}
+
+	@Override
+	public Student loginStudent(String email, String password) {
+		String sql = "SELECT * FROM STUDENTINFO WHERE email = ? and password = ?";
+		Student student = null;
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setString(1, email);
+			pst.setString(2, password);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				student = new Student(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getInt(7));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return student;
 	}
 
 	
