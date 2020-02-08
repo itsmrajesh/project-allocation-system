@@ -19,5 +19,6 @@ public interface Dao {
 	MyProject getProjectByID(int pid); // ok
 
 	Student loginStudent(String email, String password); // ok
-
+	
+	List<MyProject> getProjectsByStatus(String status); // ok
 }

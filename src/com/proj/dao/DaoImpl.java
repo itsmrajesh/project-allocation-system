@@ -152,6 +152,27 @@ public class DaoImpl implements Dao {
 		return student;
 	}
 
+	@Override
+	public List<MyProject> getProjectsByStatus(String status) {
+		String sql = "SELECT * FROM PROJECTINFO WHERE status = ?";
+		List<MyProject> pList = new ArrayList<>();
+		MyProject project = null;
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setString(1, status);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				project = new MyProject(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8));
+
+				pList.add(project);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return pList;
+	}
+
 	
 
 }

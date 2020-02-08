@@ -1,6 +1,9 @@
 package com.proj.web;
 
 import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,12 +13,13 @@ import javax.servlet.http.HttpSession;
 
 import com.proj.dao.Dao;
 import com.proj.dao.DaoImpl;
+import com.proj.domain.MyProject;
 import com.proj.domain.Student;
 
 /**
  * Servlet implementation class UserActions
  */
-@WebServlet(urlPatterns = { "/signup", "/login", "/dashboard", "/addnewproject", "/myprofile" })
+@WebServlet(urlPatterns = { "/signup", "/login", "/studentDashboard", "/showmyprojects","/addnewproject", "/myprofile" })
 public class UserActions extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -23,37 +27,67 @@ public class UserActions extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String url = request.getRequestURI();
-		HttpSession hs = request.getSession();
+		HttpSession session = request.getSession();
 		Student student = null;
 		if (url.endsWith("signup")) {
 			String usn, name, dept, email, mob, pwd;
 			int sem;
-			usn = request.getParameter("name").toUpperCase();
-			Student s = new Student(usn, name, dept, email, mob, pwd, sem);
+			usn = request.getParameter("usn").toUpperCase();
+			name = request.getParameter("name").toUpperCase();
+			dept = request.getParameter("dept").toUpperCase();
+			email = request.getParameter("email").toLowerCase();
+			mob = request.getParameter("mobile").toUpperCase();
+			pwd = request.getParameter("password").toUpperCase();
+			sem = Integer.parseInt(request.getParameter("sem"));
+			Student stu = new Student(usn, name, dept, email, mob, pwd, sem);
+			if (dao.signUpStudent(stu)) {
+				response.sendRedirect("SignUpSucess.html");
+			} else {
+
+			}
+
 		} else if (url.endsWith("login")) {
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 			if (email.equalsIgnoreCase("admin@ncet.com") && password.equals("ncet")) {
-				response.sendRedirect("admin.html");
+				response.sendRedirect("AdminDashboard.html");
 			} else if ((student = dao.loginStudent(email, password)) != null) {
 				String name = student.getName();
 				String usn = student.getUsn();
-				hs.setAttribute("usn", usn);
-				hs.setAttribute("name", name);
+				session.setAttribute("usn", usn);
+				session.setAttribute("name", name);
+				response.sendRedirect("dashboard.jsp");
+
+			} else {
+				response.sendRedirect("invalid.html");
 			}
 
 		} else if (url.endsWith("addnewproject")) {
+			String usn, ptitle, type, pabstract, status, feedback, team;
+			usn = session.getAttribute("usn").toString();
+			ptitle = request.getParameter("ptitle");
+			type = request.getParameter("type");
+			pabstract = request.getParameter("abs");
+			team = request.getParameter("team");
+			MyProject project = new MyProject(usn, ptitle, type, pabstract, team);
+			if (dao.registerProject(project)) {
+				response.sendRedirect("ProjectsAddedSuccessfully.html");
+			} else {
+				response.sendRedirect("dashboard.jsp");
+			}
 
-		} else if (url.endsWith("myprofile")) {
-
+		} else if (url.endsWith("showmyprojects")) {
+			List<MyProject> list = dao.getStudentProject(session.getAttribute("usn").toString());
+			request.setAttribute("myprojects", list);
+			RequestDispatcher rd = request.getRequestDispatcher("myprojects.jsp");
+			rd.forward(request, response);
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

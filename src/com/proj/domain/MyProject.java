@@ -59,4 +59,12 @@ public class MyProject {
 		return team;
 	}
 
+	@Override
+	public String toString() {
+		return "MyProject [id=" + id + ", usn=" + usn + ", ptitle=" + ptitle + ", type=" + type + ", pabstract="
+				+ pabstract + ", status=" + status + ", feedback=" + feedback + ", team=" + team + "]";
+	}
+	
+	
+
 }
