@@ -61,7 +61,7 @@ public class AdminAction extends HttpServlet {
 
 		} else if (url.endsWith("update")) {
 			int id = Integer.parseInt(session.getAttribute("id").toString());
-			status = request.getParameter("status");
+			status = request.getParameter("status").toUpperCase();
 			String feedback = request.getParameter("feedback");
 			if(dao.updateProject(id, status, feedback)) {
 				response.sendRedirect("projectupdatesuccess.html");
