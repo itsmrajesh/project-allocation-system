@@ -173,6 +173,24 @@ public class DaoImpl implements Dao {
 		return pList;
 	}
 
-	
+	@Override
+	public List<MyProject> getAllProjects() {
+		String sql = "SELECT * FROM PROJECTINFO";
+		List<MyProject> pList = new ArrayList<>();
+		MyProject project = null;
+		try {
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				project = new MyProject(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8));
+
+				pList.add(project);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return pList;
+	}
 
 }

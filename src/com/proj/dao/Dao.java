@@ -21,4 +21,7 @@ public interface Dao {
 	Student loginStudent(String email, String password); // ok
 	
 	List<MyProject> getProjectsByStatus(String status); // ok
+	
+	List<MyProject> getAllProjects();
+	
 }

@@ -18,7 +18,7 @@ import com.proj.domain.MyProject;
 /**
  * Servlet implementation class AdminAction
  */
-@WebServlet(urlPatterns = { "/pending", "/approved", "/rejected", "/update", "/viewproject" })
+@WebServlet(urlPatterns = { "/pending", "/approved", "/rejected", "/update", "/viewproject", "/showallprojects" })
 public class AdminAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -63,9 +63,15 @@ public class AdminAction extends HttpServlet {
 			int id = Integer.parseInt(session.getAttribute("id").toString());
 			status = request.getParameter("status").toUpperCase();
 			String feedback = request.getParameter("feedback");
-			if(dao.updateProject(id, status, feedback)) {
+			if (dao.updateProject(id, status, feedback)) {
 				response.sendRedirect("projectupdatesuccess.html");
 			}
+		} else if (url.endsWith("showallprojects")) {
+			list = dao.getAllProjects();
+			session.setAttribute("status", "All");
+			request.setAttribute("projects", list);
+			RequestDispatcher rd = request.getRequestDispatcher("viewprojects.jsp");
+			rd.forward(request, response);
 		}
 	}
 

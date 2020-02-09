@@ -3,12 +3,12 @@
 #sports {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
-	width: 70%;
+	width: 85%;
 }
 
 #sports td, #sports th {
 	border: 1px solid #ddd;
-	padding: 20px;
+	padding: 30px;
 }
 
 #sports tr:nth-child(even) {

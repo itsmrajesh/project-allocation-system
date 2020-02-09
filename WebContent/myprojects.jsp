@@ -52,7 +52,7 @@ body {
 	<table id="sports" align="center">
 		<tr>
 		<tr>
-			<th>ID</th>
+			<th>Project ID</th>
 			<th>Project Title</th>
 			<th>Type</th>
 			<th>Team Members</th>
