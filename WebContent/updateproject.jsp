@@ -16,7 +16,6 @@
 <link rel="stylesheet" type="text/css" href="table.css">
 <link rel="stylesheet" type="text/css" href="clubtable.css" />
 
-
 <style>
 body {
 	background-image: url('blurimg7.jpg');
@@ -68,7 +67,7 @@ body {
 		</tr>
 		<tr>
 			<th>Status</th>
-			<td>${p.status}</td>
+			<td class="status">${p.status}</td>
 		</tr>
 		<tr>
 			<th>Feedback From Admin</th>
@@ -130,4 +129,24 @@ body {
 
 
 </body>
+
+<script>
+
+$(document).ready(function () {
+    var x = $("td.status")
+    for (var i = 0; i < x.length; i++) {
+        if ($(x[i]).html() == "PENDING") {
+            $(x[i]).html('<h5 class="text-primary">PENDING</h5>')
+        } 
+        else if ($(x[i]).html() == "REJECTED") {
+            $(x[i]).html('<h5 class="text-danger">REJECTED</h5>')
+        }
+        else {
+        	 $(x[i]).html('<h5 class="text-success">APPROVED</h5>')
+        }
+    }
+});
+
+</script>
+
 </html>
