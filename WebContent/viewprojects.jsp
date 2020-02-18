@@ -14,7 +14,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="table.css">
-
+<script type="text/javascript" src="table-color.js"></script>
 
 <title>Viewing Project</title>
 
@@ -72,7 +72,7 @@ body {
 				<td>${p.type}</td>
 				<td>${p.team}</td>
 				<td>${p.pabstract}</td>
-				<td>${p.status}</td>
+				<td class="status">${p.status}</td>
 				<td>${p.feedback}</td>
 				<td><a href="viewproject?id=${p.id}"><button>UPDATE</button></a>
 					</td>
