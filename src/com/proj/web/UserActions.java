@@ -71,7 +71,7 @@ public class UserActions extends HttpServlet {
 			type = request.getParameter("type");
 			pabstract = request.getParameter("abs");
 			team = request.getParameter("team");
-			MyProject project = new MyProject(usn, ptitle, type, pabstract, team);
+			MyProject project = new MyProject(usn, ptitle, type, pabstract, usn+"(L) ,"+team);
 			if (dao.registerProject(project)) {
 				response.sendRedirect("ProjectsAddedSuccessfully.html");
 			} else {
