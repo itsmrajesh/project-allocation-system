@@ -6,21 +6,21 @@ import com.proj.domain.MyProject;
 import com.proj.domain.Student;
 
 public interface Dao {
-	boolean signUpStudent(Student student); // ok
+	boolean signUpStudent(Student student); 
 
-	Student getStudent(String usn); // ok
+	Student getStudent(String usn); 
 
-	boolean registerProject(MyProject project); // ok
+	boolean registerProject(MyProject project); 
 
-	List<MyProject> getStudentProject(String usn); // ok
+	List<MyProject> getStudentProject(String usn); 
 
-	boolean updateProject(int pid, String status, String feedback); // ok
+	boolean updateProject(int pid, String status, String feedback); 
 
-	MyProject getProjectByID(int pid); // ok
+	MyProject getProjectByID(int pid); 
 
-	Student loginStudent(String email, String password); // ok
+	Student loginStudent(String email, String password); 
 	
-	List<MyProject> getProjectsByStatus(String status); // ok
+	List<MyProject> getProjectsByStatus(String status); 
 	
 	List<MyProject> getAllProjects();
 	
