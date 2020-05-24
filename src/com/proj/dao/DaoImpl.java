@@ -1,11 +1,16 @@
 package com.proj.dao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.proj.dbutil.DBUtil;
 import com.proj.domain.MyProject;
+import com.proj.domain.ProjectReport;
 import com.proj.domain.Student;
 
 public class DaoImpl implements Dao {
@@ -191,6 +196,53 @@ public class DaoImpl implements Dao {
 			e.printStackTrace();
 		}
 		return pList;
+	}
+
+	@Override
+	public List<MyProject> searchProject(String str) {
+		List<MyProject> allProjects = getAllProjects();
+		String usn = null, title = null;
+		List<MyProject> pList = new ArrayList<>();
+		for (MyProject project : allProjects) {
+			usn = project.getUsn();
+			title = project.getPtitle();
+			if (usn.equalsIgnoreCase(str) || usn.contains(str) || title.equalsIgnoreCase(str) || title.contains(str)) {
+				pList.add(project);
+			}
+		}
+		return pList;
+	}
+
+	@Override
+	public boolean addReport(ProjectReport report) {
+		String sql = "INSERT INTO projectreport (USN,PHASE,REPORT,TITLE) VALUES (?,?,?,?)";
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setString(1, report.getUsn());
+			pst.setInt(2, report.getPhase());
+			pst.setBytes(3, report.getReport());
+			pst.setString(4, report.getTitle());
+			int rows = pst.executeUpdate();
+			return rows == 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public ResultSet getReport(int phase, String title) {
+		String sql = "SELECT REPORT FROM projectreport WHERE PHASE = ? AND TITLE = ?";
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, phase);
+			pst.setString(2, title);
+			rs = pst.executeQuery();
+			return rs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

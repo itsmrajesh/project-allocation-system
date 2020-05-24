@@ -46,14 +46,13 @@ body {
 
 
 	<h2 align="center">
-		Showing <b>
-			<%
-				out.println(session.getAttribute("status").toString().toUpperCase());
-			%>
+		Showing <b> <%
+ 	out.println(session.getAttribute("status").toString().toUpperCase());
+ %>
 		</b> Projects List
 	</h2>
-	
-		<table id="sports" align="center">
+
+	<table id="sports" align="center">
 		<tr>
 		<tr>
 			<th>Project ID</th>
@@ -64,6 +63,7 @@ body {
 			<th>Status</th>
 			<th>Feedback From Admin</th>
 			<th>Update</th>
+			<th>View Report</th>
 		</tr>
 		<c:forEach items="${projects}" var="p">
 			<tr>
@@ -75,7 +75,9 @@ body {
 				<td class="status">${p.status}</td>
 				<td>${p.feedback}</td>
 				<td><a href="viewproject?id=${p.id}"><button>UPDATE</button></a>
-					</td>
+				</td>
+				<td><a href="getreport?title=${p.ptitle}"><button>View
+							Report</button></a></td>
 			</tr>
 		</c:forEach>
 	</table>

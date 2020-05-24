@@ -31,7 +31,7 @@
 				</div>
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="dashboard.jsp">Home</a></li>
-
+					
 				</ul>
 
 			</div>
@@ -47,7 +47,7 @@ body {
 }
 </style>
 
-	<h2 align="center">Your Projects</h2>
+	<h2 align="center">Search Project Results</h2>
 	<br>
 
 	<table id="sports" align="center">
@@ -60,8 +60,6 @@ body {
 			<th>Project Abstract</th>
 			<th>Status</th>
 			<th>Feedback From Admin</th>
-			<th>Report</th>
-			<th>View Report</th>
 		</tr>
 		<c:forEach items="${myprojects}" var="p">
 			<tr>
@@ -72,11 +70,6 @@ body {
 				<td>${p.pabstract}</td>
 				<td class="status">${p.status}</td>
 				<td>${p.feedback}</td>
-				<td><a href="reportreview?title=${p.ptitle}"><button>Add
-							Report</button></a></td>
-				<td><a href="getreport?title=${p.ptitle}"><button>View
-							Report</button></a></td>
-
 			</tr>
 		</c:forEach>
 	</table>

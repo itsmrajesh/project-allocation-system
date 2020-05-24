@@ -51,39 +51,38 @@ body {
 	background-color: #E60808;
 	border-radius: 16px;
 } /* Blue */
-
-
-
 </style>
 
 </head>
 
 <body>
-	<form action="login.html">
-
-		<nav class="navbar navbar-inverse">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#section-a">Project Management
-						System</a>
-				</div>
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="dashboard.jsp"> <span
-							class="glyphicon glyphicon-refresh"></span>
-					</a></li>
 
 
-				</ul>
-
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="index.html">Logout &nbsp;<span
-							class="glyphicon glyphicon-off"></span></a></li>
-				</ul>
-
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#section-a">Project Management
+					System</a>
 			</div>
-		</nav>
-	</form>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">Home</a></li>
+				<li class="active"><a href="searchproject.html">Search Projects</a></li>
+				<li><a href="dashboard.jsp"> <span
+						class="glyphicon glyphicon-refresh"></span>
+				</a></li>
+
+
+
+			</ul>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="index.html">Logout &nbsp;<span
+						class="glyphicon glyphicon-off"></span></a></li>
+			</ul>
+
+		</div>
+	</nav>
+
 
 	<style>
 body {
@@ -115,10 +114,11 @@ body {
 	<div class="container">
 
 		<a href="AddNewProjects.html"><button class="btn btn-primary"
-				style="margin-left: 250px;">Add New Project</button></a> <a
+				style="margin-left: 250px;">Add New Project</button></a> 
+				<a
 			href="showmyprojects">
-			<button class="btn btn-primary" style="margin-left: 250px;">Show My
-				Projects</button>
+			<button class="btn btn-primary" style="margin-left: 250px;">Show
+				My Projects</button>
 		</a>
 
 	</div>

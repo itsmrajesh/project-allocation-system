@@ -9,5 +9,15 @@ create table projectinfo(pid int(100) primary key auto_increment,usn varchar(100
 
 alter table projectinfo auto_increment=1000;
 
+CREATE TABLE `projectreport` (
+  `reportid` int(11) NOT NULL AUTO_INCREMENT,
+  `USN` varchar(45) DEFAULT NULL,
+  `phase` int(10) DEFAULT NULL,
+  `report` mediumblob,
+  `title` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`reportid`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+
 select * from studentinfo;
 select * from projectinfo;

@@ -1,6 +1,11 @@
 package com.proj.dbutil;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public enum DBUtil {
 	db;
@@ -8,7 +13,7 @@ public enum DBUtil {
 	private Statement stmt;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
-	
+
 	static {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

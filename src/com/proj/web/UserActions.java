@@ -19,7 +19,8 @@ import com.proj.domain.Student;
 /**
  * Servlet implementation class UserActions
  */
-@WebServlet(urlPatterns = { "/signup", "/login", "/studentDashboard", "/showmyprojects","/addnewproject", "/myprofile" })
+@WebServlet(urlPatterns = { "/signup", "/login", "/studentDashboard", "/showmyprojects", "/addnewproject", "/myprofile",
+		"/searchproject" })
 public class UserActions extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,30 +28,30 @@ public class UserActions extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		String url = request.getRequestURI();
 		HttpSession session = request.getSession();
 		Student student = null;
 		if (url.endsWith("signup")) {
 			String usn, name, dept, email, mob, pwd;
 			int sem;
-			usn = request.getParameter("usn").toUpperCase();
+			usn = request.getParameter("usn").toUpperCase().trim();
 			name = request.getParameter("name").toUpperCase();
 			dept = request.getParameter("dept").toUpperCase();
 			email = request.getParameter("email").toLowerCase();
 			mob = request.getParameter("mobile").toUpperCase();
-			pwd = request.getParameter("password").toUpperCase();
+			pwd = request.getParameter("password").toUpperCase().trim();
 			sem = Integer.parseInt(request.getParameter("sem"));
 			Student stu = new Student(usn, name, dept, email, mob, pwd, sem);
 			if (dao.signUpStudent(stu)) {
 				response.sendRedirect("SignUpSucess.html");
 			} else {
-
+				response.getWriter().append("Signup Failed, Try again");
 			}
 
 		} else if (url.endsWith("login")) {
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
+			String email = request.getParameter("email").trim();
+			String password = request.getParameter("password").trim();
 			if (email.equalsIgnoreCase("admin@ncet.com") && password.equals("ncet")) {
 				response.sendRedirect("AdminDashboard.html");
 			} else if ((student = dao.loginStudent(email, password)) != null) {
@@ -71,7 +72,7 @@ public class UserActions extends HttpServlet {
 			type = request.getParameter("type");
 			pabstract = request.getParameter("abs");
 			team = request.getParameter("team");
-			MyProject project = new MyProject(usn, ptitle, type, pabstract, usn+"(L) ,"+team);
+			MyProject project = new MyProject(usn, ptitle, type, pabstract, usn + "(L) ," + team);
 			if (dao.registerProject(project)) {
 				response.sendRedirect("ProjectsAddedSuccessfully.html");
 			} else {
@@ -84,6 +85,15 @@ public class UserActions extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("myprojects.jsp");
 			rd.forward(request, response);
 		}
+
+		else if (url.endsWith("searchproject")) {
+			String searchStr = request.getParameter("searchstr");
+			List<MyProject> list = dao.searchProject(searchStr);
+			request.setAttribute("myprojects", list);
+			RequestDispatcher rd = request.getRequestDispatcher("searchprojects.jsp");
+			rd.forward(request, response);
+		}
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
